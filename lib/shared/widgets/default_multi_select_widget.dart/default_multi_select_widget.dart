@@ -11,7 +11,7 @@ class DefaultMultiSelect extends StatelessWidget {
     this.decoration,
     this.obscureText = false,
     this.hintText,
-    this.onChange,
+    required this.onChange,
     this.initialValue,
     this.keyboardType,
     this.validator,
@@ -30,8 +30,8 @@ class DefaultMultiSelect extends StatelessWidget {
   final Color? labelColor;
   final bool obscureText;
   final String? hintText;
-  final void Function(String?)? onChange;
-  final String? initialValue;
+  final void Function(List<dynamic>) onChange;
+  final List<dynamic>? initialValue;
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
@@ -72,6 +72,7 @@ class DefaultMultiSelect extends StatelessWidget {
                     child: MultiSelectDialogField(
                       title: Text(hintText ?? ''),
                       selectedColor: primaryColor,
+                      initialValue: initialValue ?? [],
                       selectedItemsTextStyle: const TextStyle(
                         color: Colors.white,
                       ),
@@ -87,9 +88,7 @@ class DefaultMultiSelect extends StatelessWidget {
                           .map((e) => MultiSelectItem(e.chave, e.valor))
                           .toList(),
                       listType: MultiSelectListType.CHIP,
-                      onConfirm: (values) {
-                        print(values);
-                      },
+                      onConfirm: onChange,
                     ),
                   ),
                   if (widgetPosition == 'rigth')

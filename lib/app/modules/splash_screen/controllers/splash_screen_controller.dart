@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:loan_simulations/routes/app_pages.dart';
+import 'package:loan_simulations/app/routes/app_pages.dart';
 
 class SplashScreenController extends GetxController {
   @override

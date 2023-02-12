@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:loan_simulations/routes/app_pages.dart';
+import 'package:loan_simulations/app/routes/app_pages.dart';
 import 'package:loan_simulations/shared/theme/app_theme.dart';
 
 Future main() async {

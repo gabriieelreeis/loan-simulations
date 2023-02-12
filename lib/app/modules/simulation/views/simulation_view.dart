@@ -111,13 +111,14 @@ class SimulationView extends GetView<SimulationController> {
             ),
           ),
         ),
-        _buildForm(),
+        if (controller.result != null) _result(),
+        if (controller.result == null) _buildForm(),
       ],
     );
   }
 
   Widget _buildForm() {
-    final List<int> _installments = [36, 48, 60, 72, 84];
+    final List<int> installments = [36, 48, 60, 72, 84];
 
     return Container(
       alignment: Alignment.topLeft,
@@ -149,7 +150,7 @@ class SimulationView extends GetView<SimulationController> {
             inputFormatters: <TextInputFormatter>[
               CurrencyTextInputFormatter(
                 locale: 'pt_BR',
-                symbol: 'R\$ ',
+                symbol: 'R\$',
               ),
             ],
           ),
@@ -161,8 +162,7 @@ class SimulationView extends GetView<SimulationController> {
               flex: 100,
               labelText: 'Instituição',
               hintText: 'Selecione uma instituição',
-              initialValue: controller.institution,
-              onChange: (value) => controller.institution = value!,
+              onChange: (value) => controller.institution = value,
               items: controller.listInstitutions,
             ),
           ),
@@ -175,7 +175,7 @@ class SimulationView extends GetView<SimulationController> {
               labelText: 'Convênio',
               hintText: 'Selecione um convênio',
               initialValue: controller.insurance,
-              onChange: (value) => controller.insurance = value!,
+              onChange: (value) => controller.insurance = value,
               items: controller.listInsurances,
             ),
           ),
@@ -187,14 +187,20 @@ class SimulationView extends GetView<SimulationController> {
             labelText: 'Parcelas',
             onChange: (value) => controller.installments = value!,
             items: [
-              const DropdownMenuItem<String>(
+              DropdownMenuItem<String>(
                 value: null,
-                child: Text('Selecione a quantidade de parcelas'),
+                child: Text(
+                  'Selecione a quantidade de parcelas',
+                  style: TextStyle(fontSize: 14.sp),
+                ),
               ),
-              ..._installments.map((installment) {
+              ...installments.map((installment) {
                 return DropdownMenuItem<String>(
                   value: installment.toString(),
-                  child: Text(installment.toString()),
+                  child: Text(
+                    installment.toString(),
+                    style: TextStyle(fontSize: 14.sp),
+                  ),
                 );
               }).toList(),
             ],
@@ -216,6 +222,143 @@ class SimulationView extends GetView<SimulationController> {
             height: 20.h,
           ),
           const Text('Campos com * são obrigatórios'),
+        ],
+      ),
+    );
+  }
+
+  Widget _result() {
+    return Container(
+      alignment: Alignment.topLeft,
+      width: ScreenUtil().screenWidth,
+      padding: EdgeInsets.all(20.w),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Vejaa baixo as opções de emprestimo \ndisponíveis para você:',
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w700,
+              color: accentColor,
+            ),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          Obx(
+            () => ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: controller.result!.length,
+              itemBuilder: (context, index) {
+                String key = controller.result!.keys.toList()[index];
+
+                return Container(
+                  width: ScreenUtil().screenWidth,
+                  color: greyColor,
+                  padding: EdgeInsets.all(20.w),
+                  margin: EdgeInsets.symmetric(vertical: 10.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            key,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18.sp,
+                            ),
+                          ),
+                          Text.rich(
+                            TextSpan(
+                              text: 'Valor: ',
+                              children: [
+                                TextSpan(
+                                  text: controller.convertDoubleToReal(
+                                      controller.loanValue),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Text(
+                        'Opções disponíveis:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Divider(
+                        height: 50.h,
+                      ),
+                      for (var item in controller.result![key])
+                        Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text.rich(
+                                  TextSpan(
+                                    text: 'Parcelas: ',
+                                    children: [
+                                      TextSpan(
+                                        text: '${item['parcelas']}x ',
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                controller.convertDoubleToReal(
+                                                    item['valor_parcela']),
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 18.sp,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Text.rich(
+                                  TextSpan(
+                                    text: 'Juros ao mês: ',
+                                    children: [
+                                      TextSpan(
+                                        text: '${item['taxa']}%',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Divider(
+                              height: 50.h,
+                            ),
+                          ],
+                        ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+          DefaultButtonWidget(
+            title: 'Simular novamente',
+            textColor: Colors.white,
+            bgColor: primaryColor,
+            onTap: controller.reset,
+          ),
         ],
       ),
     );

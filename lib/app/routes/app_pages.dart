@@ -30,7 +30,8 @@ abstract class AppPages {
         GetPage(
           name: Routes.simulation,
           binding: SimulationBinding(),
-          page: () => SimulationView(),
+          transition: Transition.circularReveal,
+          page: () => const SimulationView(),
         ),
       ],
     ),

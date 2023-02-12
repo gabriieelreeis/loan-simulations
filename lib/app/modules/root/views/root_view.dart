@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loan_simulations/routes/app_pages.dart';
+import 'package:loan_simulations/app/routes/app_pages.dart';
 
 class RootView extends GetView {
   const RootView({super.key});
