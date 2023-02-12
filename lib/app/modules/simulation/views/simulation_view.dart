@@ -138,6 +138,11 @@ class SimulationView extends GetView<SimulationController> {
               color: primaryColor,
             ),
           ),
+          if (controller.hasSended)
+            const Text(
+              'Nenhuma opção de crédito disponível para as opções informadas',
+              style: TextStyle(color: Colors.red),
+            ),
           SizedBox(
             height: 20.h,
           ),
@@ -157,27 +162,24 @@ class SimulationView extends GetView<SimulationController> {
           SizedBox(
             height: 20.h,
           ),
-          Obx(
-            () => DefaultMultiSelect(
-              flex: 100,
-              labelText: 'Instituição',
-              hintText: 'Selecione uma instituição',
-              onChange: (value) => controller.institution = value,
-              items: controller.listInstitutions,
-            ),
+          DefaultMultiSelect(
+            flex: 100,
+            labelText: 'Instituição',
+            hintText: 'Selecione uma instituição',
+            initialValue: controller.institution,
+            onChange: (value) => controller.institution = value,
+            items: controller.listInstitutions,
           ),
           SizedBox(
             height: 20.h,
           ),
-          Obx(
-            () => DefaultMultiSelect(
-              flex: 100,
-              labelText: 'Convênio',
-              hintText: 'Selecione um convênio',
-              initialValue: controller.insurance,
-              onChange: (value) => controller.insurance = value,
-              items: controller.listInsurances,
-            ),
+          DefaultMultiSelect(
+            flex: 100,
+            labelText: 'Convênio',
+            hintText: 'Selecione um convênio',
+            initialValue: controller.insurance,
+            onChange: (value) => controller.insurance = value,
+            items: controller.listInsurances,
           ),
           SizedBox(
             height: 20.h,
@@ -185,10 +187,11 @@ class SimulationView extends GetView<SimulationController> {
           DefaultDropDown(
             flex: 100,
             labelText: 'Parcelas',
+            initialValue: controller.installments.toString(),
             onChange: (value) => controller.installments = value!,
             items: [
               DropdownMenuItem<String>(
-                value: null,
+                value: '0',
                 child: Text(
                   'Selecione a quantidade de parcelas',
                   style: TextStyle(fontSize: 14.sp),
@@ -316,7 +319,9 @@ class SimulationView extends GetView<SimulationController> {
                                           TextSpan(
                                             text:
                                                 controller.convertDoubleToReal(
-                                                    item['valor_parcela']),
+                                                    double.parse(
+                                                        item['valor_parcela']
+                                                            .toString())),
                                             style: TextStyle(
                                               fontWeight: FontWeight.w700,
                                               fontSize: 18.sp,

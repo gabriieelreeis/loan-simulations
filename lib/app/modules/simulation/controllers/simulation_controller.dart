@@ -23,6 +23,7 @@ class SimulationController extends GetxController {
   final _listInstitutions = <InstitutionModel>[].obs;
   final _listInsurances = <InsuranceModel>[].obs;
   final _result = Rxn<Map<String, dynamic>>();
+  final _hasSended = false.obs;
 
   set loading(bool val) => _loading.value = val;
   bool get loading => _loading.value;
@@ -56,6 +57,9 @@ class SimulationController extends GetxController {
 
   set result(Map<String, dynamic>? val) => _result.value = val;
   Map<String, dynamic>? get result => _result.value;
+
+  set hasSended(val) => _hasSended.value = val;
+  get hasSended => _hasSended.value;
 
   bool get validForm {
     if (loanValue > 0) {
@@ -92,6 +96,7 @@ class SimulationController extends GetxController {
       );
 
       result = simulation;
+      hasSended = true;
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -128,12 +133,8 @@ class SimulationController extends GetxController {
   }
 
   String convertDoubleToReal(double value) {
-    final CurrencyTextInputFormatter _formatter = CurrencyTextInputFormatter(
-      locale: 'pt_BR',
-      symbol: 'R\$',
-    );
-
-    return _formatter.format(value.toString());
+    String formattedValue = value.toStringAsFixed(2).replaceAll('.', ',');
+    return "R\$ ${formattedValue.replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}";
   }
 
   void reset() {
@@ -141,6 +142,8 @@ class SimulationController extends GetxController {
     installments = '0';
     insurance = [];
     institution = [];
-    loanValue = 'R\$0,00';
+    loanValue = '';
+    loanValueController.text = 'R\$0,00';
+    hasSended = false;
   }
 }
