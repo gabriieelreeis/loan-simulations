@@ -13,6 +13,7 @@ class PresentationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PresentationSliderWidget(
+      physics: const NeverScrollableScrollPhysics(),
       items: const [
         PresentationViewFirst(),
         PresentationViewSecond(),

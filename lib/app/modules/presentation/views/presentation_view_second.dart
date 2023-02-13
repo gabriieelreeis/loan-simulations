@@ -14,7 +14,7 @@ class PresentationViewSecond extends StatelessWidget {
         left: 30.w,
         right: 30.w,
         top: Get.statusBarHeight.h,
-        bottom: 120.h,
+        bottom: 150.h,
       ),
       color: primaryBackground,
       child: SingleChildScrollView(
