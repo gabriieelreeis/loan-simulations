@@ -54,7 +54,7 @@ class PresentationViewSecond extends StatelessWidget {
               ),
             ),
             Text(
-              'Nós oferecemos a você a possibilidade de escolher o valor desejado para o seu pagamento, seja ele à vista ou parcelado em até 80 vezes. Trabalhamos com as melhores instituições financeiras e convênios para garantir a segurança e comodidade do seu pagamento.',
+              'Nós oferecemos a você a possibilidade de escolher o valor desejado para o seu pagamento, seja ele à vista ou parcelado em até 84 vezes. Trabalhamos com as melhores instituições financeiras e convênios para garantir a segurança e comodidade do seu pagamento.',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.sp),
             ),
