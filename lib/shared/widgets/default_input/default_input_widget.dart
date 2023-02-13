@@ -78,9 +78,9 @@ class DefaultInput extends StatelessWidget {
                       decoration: InputDecoration(
                         filled: true,
                         hintText: hintText,
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                           fontWeight: FontWeight.w400,
-                          fontSize: 16.sp,
+                          fontSize: 14,
                         ),
                         fillColor: Colors.transparent,
                         contentPadding: const EdgeInsets.all(12),

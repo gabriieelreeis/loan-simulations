@@ -194,7 +194,7 @@ class SimulationView extends GetView<SimulationController> {
                 value: '0',
                 child: Text(
                   'Selecione a quantidade de parcelas',
-                  style: TextStyle(fontSize: 14.sp),
+                  style: TextStyle(fontSize: 14),
                 ),
               ),
               ...installments.map((installment) {
@@ -202,7 +202,7 @@ class SimulationView extends GetView<SimulationController> {
                   value: installment.toString(),
                   child: Text(
                     installment.toString(),
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(fontSize: 14),
                   ),
                 );
               }).toList(),
