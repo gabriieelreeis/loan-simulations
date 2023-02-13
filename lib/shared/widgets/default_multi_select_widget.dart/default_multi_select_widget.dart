@@ -70,6 +70,8 @@ class DefaultMultiSelect extends StatelessWidget {
                   Flexible(
                     flex: flex,
                     child: MultiSelectDialogField(
+                      confirmText: const Text('Confirmar'),
+                      cancelText: const Text('Cancelar'),
                       title: Text(hintText ?? ''),
                       selectedColor: primaryColor,
                       initialValue: initialValue ?? [],
