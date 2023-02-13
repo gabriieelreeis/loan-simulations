@@ -25,7 +25,6 @@ class SimulationService extends GetxService {
         "parcelas": installments
       };
 
-      print(jsonEncode(data));
       final response = await uno.post(
         _url,
         headers: {'Content-Type': 'application/json'},
