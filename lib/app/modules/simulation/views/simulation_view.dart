@@ -38,7 +38,7 @@ class SimulationView extends GetView<SimulationController> {
       children: [
         Container(
           width: ScreenUtil().screenWidth,
-          height: (ScreenUtil().screenHeight * .3).h,
+          height: (ScreenUtil().screenHeight * .4).h,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: ExactAssetImage('assets/images/webps/quem-somos.webp'),
