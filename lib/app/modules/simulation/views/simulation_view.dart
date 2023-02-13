@@ -190,7 +190,7 @@ class SimulationView extends GetView<SimulationController> {
             initialValue: controller.installments.toString(),
             onChange: (value) => controller.installments = value!,
             items: [
-              DropdownMenuItem<String>(
+              const DropdownMenuItem<String>(
                 value: '0',
                 child: Text(
                   'Selecione a quantidade de parcelas',
@@ -202,7 +202,7 @@ class SimulationView extends GetView<SimulationController> {
                   value: installment.toString(),
                   child: Text(
                     installment.toString(),
-                    style: TextStyle(fontSize: 14),
+                    style: const TextStyle(fontSize: 14),
                   ),
                 );
               }).toList(),
